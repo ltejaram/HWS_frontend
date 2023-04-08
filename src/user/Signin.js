@@ -42,7 +42,7 @@ function Signin() {
       return (
         <div
           className="alert alert-success"
-          style={{ display: forgot ? "" : "none" }}
+          style={{ display: forgot !== "" ? "" : "none" }}
         >
           Enter username and click forgot password
         </div>
@@ -80,6 +80,8 @@ function Signin() {
         if (data.message) {
           setDetails({
             ...details,
+            username: "",
+            password: "",
             forgot: "Your new password will be sent to your mail.",
           });
         } else {
@@ -87,7 +89,7 @@ function Signin() {
         }
       });
     } else {
-      setDetails({ ...details, forgot: true });
+      setDetails({ ...details, forgot: "" });
     }
   };
 
@@ -140,44 +142,20 @@ function Signin() {
       <div className="loginpage">
         <MDBContainer fluid>
           <MDBRow>
-            <MDBCol sm="6">
+            <MDBCol sm="6" className="logindiv">
               <div className="login-heading">
                 <img src={LOGO} width="70" alt="Login logo" />
                 <span className="login-heading-span">Log In</span>
               </div>
 
               <div className="d-flex flex-column justify-content-center h-custom-2 w-75 pt-4">
-                {/*<MDBInput
-                  wrapperClass="mb-4 mx-5 w-100"
-                  label="Username"
-                  id="formControlLg"
-                  type="text"
-                  size="lg"
-                  className="MDBinput"
-                  placeholder="Username"
-                  value={username}
-                  right={0}
-                  onChange={handleChange("username")}
-                />
-                  <MDBInput
-                    className="MDBinput"
-                    wrapperClass="mb-4 mx-5 w-100"
-                    label="Password"
-                    id="formControlLg"
-                    type="password"
-                    size="lg"
-                    value={password}
-                    onChange={handleChange("password")}
-                    placeholder="Password"
-                  > 
-                  </MDBInput>
-                 */}
                 <FormControl variant="outlined" className="mb-4 mx-5 w-100">
                   <OutlinedInput
                     style={{ borderRadius: "8px", height: "50px" }}
                     value={username}
                     onChange={handleChange("username")}
                     placeholder="Username"
+                    inputProps={{ style: { fontSize: 22 } }}
                   />
                   <p>Username</p>
                 </FormControl>
@@ -187,6 +165,7 @@ function Signin() {
                     style={{ borderRadius: "8px", height: "50px" }}
                     type={showPassword ? "text" : "password"}
                     value={password}
+                    inputProps={{ style: { fontSize: 22 } }}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton
@@ -226,7 +205,7 @@ function Signin() {
               </div>
             </MDBCol>
 
-            <MDBCol sm="6" className="d-none d-sm-block px-0">
+            <MDBCol sm="6" className="d-none d-sm-block px-0 logindiv">
               <img
                 src={Pic}
                 height="100%"
